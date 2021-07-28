@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class SuperPower extends Model {
     /**
@@ -13,19 +13,16 @@ module.exports = (sequelize, DataTypes) => {
   }
   SuperPower.init(
     {
-      power: {
-        allowNull: false,
+      superpower: {
+        field: 'super_power',
         type: DataTypes.STRING,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
     },
     {
       sequelize,
-      modelName: "SuperPower",
-    }
+      modelName: 'SuperPower',
+      underscored: true,
+    },
   );
   return SuperPower;
 };

@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Hero extends Model {
     /**
@@ -11,53 +9,54 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-    
+      Hero.hasMany(models.SuperPower, {
+        foreignKey: 'id',
+      });
+      Hero.hasMany(models.HeroImage, {
+        foreignKey: 'id',
+      });
     }
-  };
-  Hero.init({
-    nickname: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notNull: true,
-        notEmpty: true,
+  }
+  Hero.init(
+    {
+      nickname: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      realName: {
+        field: 'real_name',
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      originDescription: {
+        field: 'origin_description',
+        type: DataTypes.STRING,
+      },
+      superPowers: {
+        field: 'super_powers',
+        type: DataTypes.STRING,
+      },
+      catchPhrase: {
+        field: 'catch_phrase',
+        type: DataTypes.STRING,
+      },
+      images: {
+        type: DataTypes.STRING,
       },
     },
-    real_name: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notNull: true,
-        notEmpty: true,
-      },
+    {
+      sequelize,
+      modelName: 'Hero',
+      underscored: true,
     },
-    origin_description: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notNull: true,
-        notEmpty: true,
-      },
-    },
-    superpowers: {
-      type: DataTypes.STRING,
-    },
-    catch_phrase: {
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notNull: true,
-        notEmpty: true,
-      },
-    },
-    images:{
-      type: DataTypes.STRING,
-    },
-  }, {
-    sequelize,
-    modelName: 'Hero',
-    tableName: 'heroes',
-    underscored: true,
-  });
+  );
   return Hero;
 };

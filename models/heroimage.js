@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class HeroImage extends Model {
     /**
@@ -14,18 +14,14 @@ module.exports = (sequelize, DataTypes) => {
   HeroImage.init(
     {
       image: {
-        allowNull: false,
         type: DataTypes.STRING,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
     },
     {
       sequelize,
-      modelName: "HeroImage",
-    }
+      modelName: 'HeroImage',
+      underscored: true,
+    },
   );
   return HeroImage;
 };
