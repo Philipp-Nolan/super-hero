@@ -26,10 +26,6 @@ module.exports = {
       superPowers: {
         field: 'super_powers',
         type: Sequelize.STRING,
-        references: {
-          model: 'superPowers',
-          key: 'id',
-        },
       },
       catchPhrase: {
         field: 'catch_phrase',
@@ -37,10 +33,6 @@ module.exports = {
       },
       images: {
         type: Sequelize.STRING,
-        references: {
-          model: 'heroImages',
-          key: 'id',
-        },
       },
       createdAt: {
         field: 'created_at',

@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         field: 'super_power',
         type: DataTypes.STRING,
       },
+      heroId: {
+        field: 'hero_Id',
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

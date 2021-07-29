@@ -12,6 +12,17 @@ module.exports = {
         field: 'super_power',
         type: Sequelize.STRING,
       },
+      heroId: {
+        field: 'hero_Id',
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'heros',
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'restrict',
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

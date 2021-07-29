@@ -4,7 +4,7 @@ module.exports.createHero = async (req, res, next) => {
   try {
     const { body } = req;
     const createdHero = await Hero.create(body);
-    console.log(createdHero);
+
     res.status(201).send({
       data: createdHero,
     });
