@@ -9,19 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Hero.hasMany(models.SuperPower, {
-        foreignKey: 'heroId',
-      });
       Hero.hasMany(models.HeroImage, {
-        foreignKey: 'id',
+        foreignKey: 'heroId',
+        onDelete: 'cascade',
+      });
+
+      Hero.belongsToMany(models.Superpower, {
+        through: 'heroes_to_superpowers',
+        foreignKey: 'heroId',
       });
     }
   }
   Hero.init(
     {
-      nickname: {
+      nickName: {
+        field: 'nick_name',
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(128),
         validate: {
           notNull: true,
           notEmpty: true,
@@ -30,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       realName: {
         field: 'real_name',
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(128),
         validate: {
           notNull: true,
           notEmpty: true,
@@ -38,23 +42,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       originDescription: {
         field: 'origin_description',
-        type: DataTypes.STRING,
-      },
-      superPowers: {
-        field: 'super_powers',
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(512),
+        allowNull: true,
       },
       catchPhrase: {
         field: 'catch_phrase',
+        allowNull: false,
         type: DataTypes.STRING,
-      },
-      images: {
-        type: DataTypes.STRING,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {
       sequelize,
       modelName: 'Hero',
+      tableName: 'heros',
       underscored: true,
     },
   );

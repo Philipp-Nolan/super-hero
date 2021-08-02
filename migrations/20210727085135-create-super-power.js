@@ -8,20 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      superpower: {
-        field: 'super_power',
-        type: Sequelize.STRING,
-      },
-      heroId: {
-        field: 'hero_Id',
+      name: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'heros',
-          key: 'id',
-        },
-        onDelete: 'cascade',
-        onUpdate: 'restrict',
+        type: Sequelize.STRING(64),
+        unique: true,
       },
       createdAt: {
         field: 'created_at',

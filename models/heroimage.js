@@ -9,17 +9,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      HeroImage.belongsTo(models.Hero, {
+        foreignKey: 'heroId',
+      });
     }
   }
   HeroImage.init(
     {
-      image: {
-        type: DataTypes.STRING,
+      heroId: {
+        field: 'hero_id',
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: true,
+        },
+      },
+      imagePath: {
+        field: 'image_path',
+        allowNull: false,
+        type: DataTypes.TEXT,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {
       sequelize,
       modelName: 'HeroImage',
+      tableName: 'heroImages',
       underscored: true,
     },
   );

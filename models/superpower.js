@@ -1,33 +1,38 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class SuperPower extends Model {
+  class Superpower extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Superpower.belongsToMany(models.Hero, {
+        through: 'heroes_to_superpowers',
+        foreignKey: 'powerId',
+      });
     }
   }
-  SuperPower.init(
+
+  Superpower.init(
     {
-      superpower: {
-        field: 'super_power',
-        type: DataTypes.STRING,
-      },
-      heroId: {
-        field: 'hero_Id',
+      name: {
+        field: 'name',
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(64),
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
       },
     },
     {
       sequelize,
-      modelName: 'SuperPower',
+      modelName: 'Superpower',
+      tableName: 'superpowers',
       underscored: true,
     },
   );
-  return SuperPower;
+  return Superpower;
 };

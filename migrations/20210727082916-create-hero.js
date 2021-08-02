@@ -7,31 +7,24 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        onDelete: 'cascade',
-        onUpdate: 'restrict',
       },
-      nickname: {
+      nickName: {
+        field: 'nick_name',
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
       },
       realName: {
         field: 'real_name',
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
       },
       originDescription: {
         field: 'origin_description',
-        type: Sequelize.STRING,
-      },
-      superPowers: {
-        field: 'super_powers',
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(512),
       },
       catchPhrase: {
         field: 'catch_phrase',
-        type: Sequelize.STRING,
-      },
-      images: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {

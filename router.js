@@ -7,5 +7,5 @@ const router = Router();
 router.get('/heroes', HeroController.getAllHero);
 router.post('/hero', HeroController.createHero);
 
-router.post('/hero/:id/power/', HeroMW.checkHero, PowerController.createPower);
+router.post('/hero/:id/power/', HeroMW.checkHero, PowerController.createSuperPower);
 module.exports = router;

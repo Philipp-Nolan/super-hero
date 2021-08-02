@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('heroImages', {
+    await queryInterface.createTable('heroes_to_superpowers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,19 +11,25 @@ module.exports = {
       },
       heroId: {
         field: 'hero_id',
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'heros',
           key: 'id',
         },
         onDelete: 'cascade',
-        onUpdate: 'restrict',
+        onUpdate: 'cascade',
       },
-      imagePath: {
-        field: 'image_path',
+      powerId: {
+        field: 'power_id',
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.TEXT,
+        references: {
+          model: 'superPowers',
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       createdAt: {
         field: 'created_at',
@@ -35,8 +42,14 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    await queryInterface.addConstraint('heroes_to_superpowers', {
+      type: 'UNIQUE',
+      fields: ['hero_id', 'power_id'],
+      name: 'unique_hero_power',
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('heroImages');
+    await queryInterface.dropTable('heroes_to_superpowers');
+    await queryInterface.removeConstraint('heroes_to_superpowers', 'unique_hero_power');
   },
 };
